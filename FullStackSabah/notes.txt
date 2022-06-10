@@ -1,0 +1,11 @@
+server dosyasının içindeyken komutu gir :::: npm init -y =>package.json
+npm install cors mongoose express nodemon => package-lock.json ve node_modules
+cors :backend de yazılan kodları front end kısmında görüntülemiyor gizlemk için
+
+dosyayı çalıştrımak için node index.js bunu kullanmayı değişceksek 
+package.json da script kısmına "start": "nodemon index.js"
+yazılması gerek ve npm start ile çalışmaya başlayacak
+
+mongodb de  compass dosyasını indir
+
+

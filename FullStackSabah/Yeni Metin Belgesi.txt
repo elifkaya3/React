@@ -1,0 +1,82 @@
+import logo from './logo.svg';
+import './App.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function App() {
+  const [employees, setEmployees] = useState([]);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [username, setUsername] = useState("");
+  const [img, setImg] = useState("");
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/getEmployees")
+      .then((response) => setEmployees(response.data))
+      .catch((err) => console.log(err))
+  }, [employees])
+
+  const createEmployee = () => {
+    axios.post("http://localhost:3000/createEmployee", {
+      name: name,
+      age: age,
+      username: username,
+      img: img
+    }).then((res) => {
+      alert("employee created")
+    })
+  }
+  return (
+    <div className="App">
+      {employees.map((employee) => (
+
+        <div class="card" style="width: 18rem;">
+          <img src={employee.img} class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Name:{employee.name}</h5>
+              <p class="card-text">Age:{employee.age}</p>
+              <p class="card-text">UserName:{employee.username}</p>
+              <a href="#" class="btn btn-primary">Update</a>
+              <a href="#" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+	//<div>
+          //<h1>Name:{employee.name}</h1>
+          //<h1>Age:{employee.age}</h1>
+          //<h1>UserName:{employee.username}</h1>
+        //</div>
+      ))}
+
+      <br />
+      <br />
+      <br />
+      <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email address</label>
+          <input placeholder='İsim Giriniz' type="text" onChange={(e) => setName(e.target.value)}></input>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input placeholder='Kullanıcı Yaşı' type="number" onChange={(e) => setAge(e.target.value)}></input>
+        </div>
+        <div class="mb-3 form-check">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <input placeholder='Kullanıcı Adı' type="text" onChange={(e) => setUsername(e.target.value)}></input>
+        </div>
+          <button onClick={createEmployee} type="submit" class="btn btn-primary">Create Employee</button>
+      </form>
+      {/* <div>
+        <center>
+          <input placeholder='İsim Giriniz' type="text" onChange={(e) => setName(e.target.value)}></input>
+          <input placeholder='Kullanıcı Yaşı' type="number" onChange={(e) => setAge(e.target.value)}></input>
+          <input placeholder='Kullanıcı Adı' type="text" onChange={(e) => setUsername(e.target.value)}></input>
+          <br />
+          <button onClick={createEmployee}>Create Employee</button>
+        </center>
+      </div> */}
+    </div>
+  );
+}
+
+export default App;
